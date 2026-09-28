@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Computation Answer Key</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #198754;
+            --danger: #dc3545;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --bg: #f8fafc;
+        }
+
+        body {
+            background: var(--bg);
+            color: #1e293b;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            padding: 52px 0 46px;
+        }
+
+        .hero .badge {
+            background: rgba(255,255,255,.16);
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        .question-card {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, .06);
+            overflow: hidden;
+        }
+
+        .question-card .card-header {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 18px 22px;
+        }
+
+        .question-title {
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .status-correct {
+            color: #146c43;
+            background: #d1e7dd;
+        }
+
+        .status-correction {
+            color: #842029;
+            background: #f8d7da;
+        }
+
+        .problem-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 18px;
+            font-size: 1.05rem;
+        }
+
+        /* Worksheet-style binary computation */
+        .binary-work {
+            width: min(100%, 420px);
+            margin: 18px auto;
+            padding: 22px 25px;
+            background: #fff;
+            border: 1px solid #d9dee7;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, .04);
+            font-family: "Courier New", Consolas, monospace;
+            font-size: clamp(20px, 3vw, 27px);
+            line-height: 1.55;
+        }
+
+        .math-row {
+            display: grid;
+            grid-template-columns: 32px minmax(0, 1fr);
+            align-items: center;
+        }
+
+        .math-symbol {
+            text-align: left;
+            font-family: Arial, sans-serif;
+            font-size: .9em;
+        }
+
+        .math-number {
+            text-align: right;
+            white-space: nowrap;
+            letter-spacing: 1px;
+        }
+
+        .math-line {
+            height: 2px;
+            background: #111827;
+            margin: 8px 0 9px 32px;
+        }
+
+        .decimal-answer {
+            text-align: right;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: .88em;
+            margin-top: 2px;
+            letter-spacing: 0;
+        }
+
+        .correct-answer {
+            border: 1px solid #b7dfc8;
+            background: #f0fdf4;
+            border-radius: 12px;
+            padding: 15px 18px;
+        }
+
+        .correction-note {
+            border: 1px solid #f6d78a;
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 15px 18px;
+        }
+
+        .check-note {
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+
+        .binary-pill {
+            display: inline-block;
+            font-family: "Courier New", Consolas, monospace;
+            background: #eef2ff;
+            color: #3730a3;
+            border: 1px solid #c7d2fe;
+            border-radius: 7px;
+            padding: 4px 9px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .student-pill {
+            display: inline-block;
+            font-family: "Courier New", Consolas, monospace;
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+            border-radius: 7px;
+            padding: 4px 9px;
+            font-weight: 700;
+        }
+
+        /* Multiplication */
+        .multiply-work .partial {
+            opacity: .85;
+        }
+
+        /* Long division */
+        .division-work {
+            font-family: "Courier New", Consolas, monospace;
+            font-size: clamp(17px, 2.5vw, 23px);
+            overflow-x: auto;
+            padding: 12px 4px;
+        }
+
+        .division-layout {
+            width: max-content;
+            margin: 0 auto;
+        }
+
+        .division-quotient {
+            margin-left: 92px;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+        }
+
+        .division-main {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .divisor {
+            padding-right: 9px;
+            padding-top: 7px;
+            white-space: nowrap;
+        }
+
+        .dividend-area {
+            border-left: 2px solid #111827;
+            border-top: 2px solid #111827;
+            padding: 7px 8px 0 9px;
+            min-width: 240px;
+        }
+
+        .division-step {
+            text-align: right;
+            padding-right: 8px;
+            margin-top: 6px;
+        }
+
+        .division-subtract {
+            border-bottom: 1px solid #111827;
+            display: inline-block;
+            padding: 0 4px 2px;
+        }
+
+        .summary-card {
+            border: 0;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, .06);
+        }
+
+        .table code {
+            color: #3730a3;
+            font-weight: 700;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,.92);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .print-btn {
+            border-radius: 9px;
+        }
+
+        footer {
+            background: #111827;
+            color: #cbd5e1;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        @media print {
+            .sticky-nav,
+            .print-btn,
+            footer {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+            }
+
+            .question-card {
+                box-shadow: none;
+                break-inside: avoid;
+                margin-bottom: 20px;
+            }
+
+            .hero {
+                background: #fff;
+                color: #111827;
+                padding: 25px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="sticky-nav">
+    <div class="container py-2 d-flex justify-content-between align-items-center">
+        <strong class="text-primary">Binary Answer Key</strong>
+        <button class="btn btn-primary btn-sm print-btn" onclick="window.print()">
+            Print Answer Key
+        </button>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <span class="badge rounded-pill px-3 py-2 mb-3">ICT / Computer Fundamentals</span>
+        <h1 class="display-6 fw-bold">Binary Computation Answer Key</h1>
+        <p class="lead mb-0">
+            Corrected solutions for binary addition, subtraction, multiplication, and division.
+        </p>
+    </div>
+</header>
+
+<main class="container py-5">
+
+    <div class="card summary-card mb-4">
+        <div class="card-body p-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-lg-8">
+                    <h4 class="fw-bold mb-2">Correction Overview</h4>
+                    <p class="text-secondary mb-0">
+                        The computations below use worksheet-style column alignment.
+                        Leading zeros are retained when they help show the place values.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">1. 368 + 247</h3>
+            
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="problem-box mb-3">
+                <strong>Question:</strong> Convert and solve the binary addition.
+            </div>
+
+            <div class="binary-work">
+                <div class="math-row">
+                    <span class="math-symbol"></span>
+                    <span class="math-number">101110000</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">+</span>
+                    <span class="math-number">011110111</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span class="math-symbol"></span>
+                    <span class="math-number">1001100111</span>
+                </div>
+                <div class="decimal-answer">= 615<sub>10</sub></div>
+            </div>
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">1001100111₂</span>
+                = 615<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">2. 7,895 + 4,687</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">1111011010111</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">+</span>
+                    <span class="math-number">1001001001111</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">11000100100110</span>
+                </div>
+                <div class="decimal-answer">= 12,582<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">11000100100110₂</span>
+                = 12,582<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">3. 642 − 395</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">1010000010</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">−</span>
+                    <span class="math-number">0110001011</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">0011110111</span>
+                </div>
+                <div class="decimal-answer">= 247<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">11110111₂</span>
+                = 247<sub>10</sub>
+                <div class="small text-secondary mt-2">
+                    The displayed <strong>0011110111₂</strong> is the same value with leading zeros.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">4. 1,248 − 679</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">10011100000</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">−</span>
+                    <span class="math-number">01010100111</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">01000111001</span>
+                </div>
+                <div class="decimal-answer">= 569<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">01000111001₂</span>
+                = 569<sub>10</sub>
+                <div class="small text-secondary mt-2">
+                    Leading zero may be removed: <strong>1000111001₂</strong>.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">5. 8,765 − 4,876</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">10001000111101</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">−</span>
+                    <span class="math-number">01001100001100</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">00111100110001</span>
+                </div>
+                <div class="decimal-answer">= 3,889<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">00111100110001₂</span>
+                = 3,889<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">6. 247 × 7</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work multiply-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">11110111</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">×</span>
+                    <span class="math-number">111</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">11110111</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">111101110</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">1111011100</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">11011000001</span>
+                </div>
+                <div class="decimal-answer">= 1,729<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">11011000001₂</span>
+                = 1,729<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">7. 347 × 12</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work multiply-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">101011011</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">×</span>
+                    <span class="math-number">1100</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">000000000</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">0000000000</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">10101101100</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">101011011000</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">1000001000100</span>
+                </div>
+                <div class="decimal-answer">= 4,164<sub>10</sub></div>
+            </div>
+
+            
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">1000001000100₂</span>
+                = 4,164<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">8. 583 × 14</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="binary-work multiply-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">1001000111</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">×</span>
+                    <span class="math-number">1110</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">0010010001110</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">0100100011100</span>
+                </div>
+                <div class="math-row partial">
+                    <span></span>
+                    <span class="math-number">1001000111000</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">1111111100010</span>
+                </div>
+                <div class="decimal-answer">= 8,162<sub>10</sub></div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">1111111100010₂</span>
+                = 8,162<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="card question-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">9. 360 ÷ 10</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="problem-box">
+                <strong>Binary conversion:</strong>
+                360<sub>10</sub> = <span class="binary-pill">101101000₂</span>
+                &nbsp; and &nbsp;
+                10<sub>10</sub> = <span class="binary-pill">1010₂</span>
+            </div>
+
+            <div class="binary-work">
+                <div class="math-row">
+                    <span></span>
+                    <span class="math-number">101101000</span>
+                </div>
+                <div class="math-row">
+                    <span class="math-symbol">÷</span>
+                    <span class="math-number">1010</span>
+                </div>
+                <div class="math-line"></div>
+                <div class="decimal-answer">= 100100<sub>2</sub></div>
+            </div>
+
+            <div class="division-work">
+                <div class="division-layout">
+                    <div class="division-quotient">100100</div>
+                    <div class="division-main">
+                        <div class="divisor">1010 )</div>
+                        <div class="dividend-area">
+                            <div>101101000</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1010</span>
+                            </div>
+                            <div class="division-step">101</div>
+                            <div class="division-step">1010</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1010</span>
+                            </div>
+                            <div class="division-step">000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                360 ÷ 10 = <span class="binary-pill">100100₂</span>
+                = 36<sub>10</sub>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="card question-card mb-5">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="question-title">10. 595 ÷ 11</h3>
+            <span class="badge status-correct rounded-pill px-3 py-2">Correct</span>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="problem-box">
+                <strong>Binary conversion:</strong>
+                595<sub>10</sub> = <span class="binary-pill">1001010011₂</span>
+                &nbsp; and &nbsp;
+                11<sub>10</sub> = <span class="binary-pill">1011₂</span>
+            </div>
+
+            <div class="division-work mt-3">
+                <div class="division-layout">
+                    <div class="division-quotient">110110</div>
+                    <div class="division-main">
+                        <div class="divisor">1011 )</div>
+                        <div class="dividend-area">
+                            <div>1001010011</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1011</span>
+                            </div>
+                            <div class="division-step">1111</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1011</span>
+                            </div>
+                            <div class="division-step">1000</div>
+                            <div class="division-step">10000</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1011</span>
+                            </div>
+                            <div class="division-step">1011</div>
+                            <div class="division-step">
+                                <span class="division-subtract">1011</span>
+                            </div>
+                            <div class="division-step">0001</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="correct-answer">
+                <strong>Correct Answer:</strong>
+                <span class="binary-pill">110110₂ R 1₂</span>
+                = 54 R1<sub>10</sub>
+            </div>
+
+            <div class="check-note mt-3">
+                <strong>Verification:</strong>
+                11 × 54 + 1 = 595.
+            </div>
+        </div>
+    </section>
+
+    <!-- Final table -->
+    <section class="card question-card">
+        <div class="card-header">
+            <h3 class="question-title">Final Corrected Answer Key</h3>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">#</th>
+                            <th>Problem</th>
+                            <th>Decimal Answer</th>
+                            <th>Binary Answer</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-4">1</td>
+                            <td>368 + 247</td>
+                            <td>615</td>
+                            <td><code>1001100111₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">2</td>
+                            <td>7,895 + 4,687</td>
+                            <td>12,582</td>
+                            <td><code>11000100100110₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">3</td>
+                            <td>642 − 395</td>
+                            <td>247</td>
+                            <td><code>11110111₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">4</td>
+                            <td>1,248 − 679</td>
+                            <td>569</td>
+                            <td><code>01000111001₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">5</td>
+                            <td>8,765 − 4,876</td>
+                            <td>3,889</td>
+                            <td><code>00111100110001₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">6</td>
+                            <td>247 × 7</td>
+                            <td>1,729</td>
+                            <td><code>11011000001₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">7</td>
+                            <td>347 × 12</td>
+                            <td>4,164</td>
+                            <td><code>1000001000100₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">8</td>
+                            <td>583 × 14</td>
+                            <td>8,162</td>
+                            <td><code>1111111100010₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">9</td>
+                            <td>360 ÷ 10</td>
+                            <td>36</td>
+                            <td><code>100100₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4">10</td>
+                            <td>595 ÷ 11</td>
+                            <td>54 R1</td>
+                            <td><code>110110₂ R 1₂</code></td>
+                            <td><span class="badge status-correct">Correct</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container text-center">
+        <strong>Binary Computation Answer Key</strong>
+        <div class="small mt-1">Worksheet-style computation and corrected solutions</div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
